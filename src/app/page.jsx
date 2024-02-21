@@ -15,7 +15,7 @@ export default async function Home() {
   const tasks = await loadTasks()
 
   return ( 
-    <div className="max-w-lg mx-auto mt-8">
+    <div className="p-4 mx-auto mt-2">
       <Navbar></Navbar>
       <br></br>
       <h1 className="text-3xl font-bold text-center mb-4">Tareas</h1>

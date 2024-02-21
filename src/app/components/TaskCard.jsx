@@ -6,13 +6,14 @@ function TaskCard({ task }) {
 
   return (
     <div
-      className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-300 hover:cursor-pointer flex flex-col justify-between"
+      className="bg-white rounded-lg shadow-md p-4 hover:bg-slate-300 hover:cursor-pointer"
       onClick={() => {
         router.push("/tasks/edit/" + task.id);
       }}
     >
-      <p className="text-lg font-medium">{task.title}</p>
-      <p className="text-gray-700 whitespace-pre-wrap">{task.description}</p>
+      <p className="text-lg font-medium break-words">{task.title}</p>
+      <p className="text-gray-700 break-words">{task.description}</p>
+      <br></br>
       <p className="text-sm text-gray-500">
         {" "}
         {new Date(task.createdAt).toLocaleString("es-ES", {

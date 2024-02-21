@@ -30,6 +30,7 @@ function Newpage({ params }) {
     };
 
     if (params.id) {
+      console.log(params.id)
       const res = await fetch(`/api/tasks/${params.id}`, {
         method: "PUT",
         body: JSON.stringify(formData),
@@ -47,10 +48,14 @@ function Newpage({ params }) {
       });
     }
     router.push("/");
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   useEffect(() => {
     if (params.id) {
+      console.log(params.id)
       fetch(`/api/tasks/${params.id}`)
         .then((res) => {
           if (!res.ok) {
