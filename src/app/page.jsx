@@ -2,6 +2,7 @@
 import { PrismaClient } from '@prisma/client'
 import TaskCard from './components/TaskCard'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 
 const prisma = new PrismaClient()
 
@@ -22,6 +23,8 @@ export default async function Home() {
         {tasks.map((task) => (<TaskCard task={task} key={task.id} />
         ))}
       </div>
+      <br></br>
+      <Footer></Footer>
     </div>
   );
 }
