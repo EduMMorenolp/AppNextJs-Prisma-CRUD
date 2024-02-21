@@ -1,10 +1,9 @@
-"use client"
+"use client";
 
-import React, {useState }from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-
-function Newpage() {
+function Newpage({ params }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -12,28 +11,59 @@ function Newpage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     const formData = {
       title: title,
       description: description,
     };
 
-    const res = await fetch("/api/tasks", {
-      method: "POST",
-      body: JSON.stringify(formData),
-      headers: {
-        "Content-Type" : "application/json",
-      },
-    })
-
+    if (params.id) {
+      const res = await fetch(`/api/tasks/${params.id}`, {
+        method: "PUT",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } else {
+      const res = await fetch("/api/tasks", {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    }
     router.push("/");
   };
 
-
+  useEffect(() => {
+    if (params.id) {
+      fetch(`/api/tasks/${params.id}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("No se encontraron datos");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          setTitle(data.title);
+          setDescription(data.description);
+        })
+        .catch((error) => {
+          console.error("Error al obtener los datos:", error);
+        });
+    }
+  }, [params.id]);
 
   return (
-    <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Crear nueva tarea</h1>
+    <div className="flex items-center justify-center h-screen">
+    <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 ">
+      {params.id ? (
+        <h1 className="text-2xl font-bold mb-4">Actualizar tarea</h1>
+      ) : (
+        <h1 className="text-2xl font-bold mb-4">Crear nueva tarea</h1>
+      )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label htmlFor="title" className="block mb-1 font-medium">
@@ -68,6 +98,7 @@ function Newpage() {
           Enviar
         </button>
       </form>
+    </div>
     </div>
   );
 }

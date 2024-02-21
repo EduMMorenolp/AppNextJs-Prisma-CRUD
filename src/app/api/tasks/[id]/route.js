@@ -1,13 +1,14 @@
-import { NextResponce } from "next/response";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client'
 
+const prisma = new PrismaClient()
 
 export async function GET() {
     const tasks = await prisma.task.findUnique({
         where: {
             id: Number(params.id)
         }});
-    return NextResponce.json(tasks)
+    return NextResponse.json(tasks)
 }
 
 export async function PUT(request, { params }) {
@@ -18,7 +19,7 @@ export async function PUT(request, { params }) {
         },
         data: data
     });  
-    return NextResponce.json("actualizando tareas" + tasksupdate)
+    return NextResponse.json("actualizando tareas" + tasksupdate)
 }
 
 export async function DELETE(request, { params }) {
@@ -27,8 +28,8 @@ export async function DELETE(request, { params }) {
         where: {
             id: Number(params.id)
         }});
-    return NextResponce.json(taskseliminado)
+    return NextResponse.json(taskseliminado)
     } catch (error) {
-    return NextResponce.json("error no existe la tarea"+ params.id)}
+    return NextResponse.json("error no existe la tarea"+ params.id)}
 }
 
