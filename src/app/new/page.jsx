@@ -11,24 +11,24 @@ function Newpage({ params }) {
   const router = useRouter();
 
   useEffect(() => {
+    if (params.id) {
     fetch(`/api/tasks/${params.id}`)
     .then(res => res.json())
     .then(data => {
-      console.log(data)
-      setTitle(data.title)
-      setDescription(data.description)
+       setTitle(data.title)
+       setDescription(data.description)
     })
-  }, [])
+    }}, [])
 
   const handleEliminar = async (e) => {
 
     e.preventDefault();
-
+    console.log("Eliminando tarea ...")
     const res = await fetch(`/api/tasks/${params.id}`, {
       method: "DELETE",
     });
-
     router.push("/");
+    router.refresh();
   }
 
   const handleSubmit = async (e) => {
@@ -57,9 +57,7 @@ function Newpage({ params }) {
       });
     }
     router.push("/");
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
+    router.refresh();
   };
 
   return (

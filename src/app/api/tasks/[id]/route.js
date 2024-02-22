@@ -3,14 +3,14 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function GET({ params }) {
+export async function GET(request,{params}) {
     try {
-        const tasks = await prisma.task.findUnique({
+        const task = await prisma.task.findUnique({
             where: {
-                id: Number(params.id)
-            }
+                id: Number(params.id),
+            },
         });
-        return NextResponse.json(tasks);
+        return NextResponse.json(task);
     } catch (error) {
         console.error(error);
         return NextResponse.error("Error al buscar la tarea");
@@ -30,7 +30,7 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
-        const taskseliminado = await prisma.task.DELETE({
+        const taskseliminado = await prisma.task.delete({
             where: {
                 id: Number(params.id)
             }
