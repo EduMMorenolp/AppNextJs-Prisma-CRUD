@@ -10,6 +10,16 @@ function Newpage({ params }) {
 
   const router = useRouter();
 
+  useEffect(() => {
+    fetch(`/api/tasks/${params.id}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      setTitle(data.title)
+      setDescription(data.description)
+    })
+  }, [])
+
   const handleEliminar = async (e) => {
 
     e.preventDefault();
@@ -30,7 +40,6 @@ function Newpage({ params }) {
     };
 
     if (params.id) {
-      console.log(params.id)
       const res = await fetch(`/api/tasks/${params.id}`, {
         method: "PUT",
         body: JSON.stringify(formData),
@@ -53,32 +62,14 @@ function Newpage({ params }) {
     }, 100);
   };
 
-  useEffect(() => {
-    if (params.id) {
-      console.log(params.id)
-      fetch(`/api/tasks/${params.id}`)
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error("No se encontraron datos");
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setTitle(data.title);
-          setDescription(data.description);
-        })
-        .catch((error) => {
-          console.error("Error al obtener los datos:", error);
-        });
-    }
-  }, [params.id]);
-
   return (
     <div className="p-4 items-center justify-center h-screen">
       <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 ">
         {params.id ? (
+          <div>
           <h1 className="text-2xl font-bold mb-4">Actualizar tarea</h1>
+          <h2 className="font-bold mb-4">Id : {params.id}</h2>
+          </div>
         ) : (
           <h1 className="text-2xl font-bold mb-4">Crear nueva tarea</h1>
         )}
