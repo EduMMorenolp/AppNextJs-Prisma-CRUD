@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 const prisma = new PrismaClient()
 
 async function loadTasks() {
+  
   return await prisma.task.findMany()
 }
 
