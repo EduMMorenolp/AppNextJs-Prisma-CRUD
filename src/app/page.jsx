@@ -1,4 +1,3 @@
-
 import { PrismaClient } from '@prisma/client'
 import TaskCard from './components/TaskCard'
 import Navbar from './components/Navbar'
