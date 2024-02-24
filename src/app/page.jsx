@@ -17,7 +17,7 @@ export default async function Home() {
     <div className="p-4 mx-auto mt-2">
       <Navbar></Navbar>
       <br></br>
-      <h1 className="text-3xl font-bold text-center mb-4">Tareas</h1>
+      <h1 className="text-3xl font-bold text-center mb-4">Tareas o Tarjetas</h1>
       <div className="grid grid-cols-3 gap-3">
         {tasks.map((task) => (<TaskCard task={task} key={task.id} />
         ))}
