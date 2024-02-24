@@ -26,13 +26,13 @@ Este es un proyecto de una aplicación web simple para gestionar tareas. Permite
 1. Clona el repositorio:
 
 ```
-git clone https://github.com/tu-usuario/gestor-de-tareas.git
+git clone https://github.com/EduMMorenolp/AppNextJs-Prisma-CRUD.git
 ```
 
 2. Navega al directorio del proyecto:
 
 ```
-cd gestor-de-tareas
+cd AppNextJs-Prisma-CRUD
 ```
 
 3. Instala las dependencias:
